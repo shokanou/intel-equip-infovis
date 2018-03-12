@@ -1,0 +1,40 @@
+html, body {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+rect {
+}
+
+.axis path,
+.axis line {
+  fill: none;
+/*  stroke: black; */
+/*  shape-rendering: crispEdges; */
+}
+.axis text {
+  font-family: Monaco, "Ubuntu Mono";
+} 
+circle {
+}
+
+.axis-odmp path,
+.axis-odmp line {
+  stroke: #222;
+}
+
+.axis-mdop-y path, .axis-mdop-y line, .axis-cutline line,
+.axis-mdop-x path, .axis-mdop-x line {
+  fill: none;
+  stroke: #222;
+}
+
+.axis-odmp text,
+.axis-mdop-x text,
+.axis-cutline text,
+.axis-mdop-y text {
+  font-family: Monaco, "Ubuntu Mono";
+  font-size: 12px;
+  fill: #222;
+}

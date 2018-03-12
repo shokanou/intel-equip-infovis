@@ -1,0 +1,593 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="{{url_for('static',filename='assets/js/jquery.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/echarts.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/dark.js')}}"></script>
+
+
+
+    <style>
+    body{
+    	background-color: #333333;
+    }
+    p{
+    	font-family:'SimHei';
+    	color:#EEEEEE;
+    	font-size:20px;
+    	text-align:center;
+    }
+    </style>
+</head>
+
+<body>
+	<div style="display:inline;">
+	<div id="main3" style="width:700px;height:350px;float:left;"></div>
+	<div id="main" style="width:500px;height:350px;float:left;"></div>
+	<script>
+var myChart = echarts.init(document.getElementById('main3'),'dark');
+myChart.showLoading();
+//$.get('data/asset/data/energy.json', function (data) {
+    myChart.hideLoading();
+    var data = [
+{name: '人群1_THU',value:77}, {name: '人群2_THU',value: 20},{name: '人群3_THU', value: 28}, {name: '人群4_THU',value: 85}, {name: '人群5_THU',value: 36}, 
+ {name: '人群1_FRI',value: 102}, {name: '人群2_FRI',value: 17}, {name: '人群3_FRI',value: 19}, {name: '人群4_FRI',value: 60}, {name: '人群5_FRI',value: 28}, 
+ {name: '人群1_SAT',value: 123}, {name: '人群2_SAT',value: 10}, {name: '人群3_SAT',value: 31}, {name: '人群4_SAT',value: 84}, {name: '人群5_SAT',value: 16}, 
+ {name: '人群1_SUN',value: 118}, {name: '人群2_SUN',value: 15}, {name: '人群3_SUN',value: 21}, {name: '人群4_SUN',value: 72}, {name: '人群5_SUN',value: 9}, 
+ {name: '人群1_MON',value: 71},{name: '人群2_MON',value: 22},{name: '人群3_MON',value: 27},{name: '人群4_MON',value: 57},{name: '人群5_MON',value: 29},
+ {name: '人群1_TUE',value: 65}, {name: '人群2_TUE',value: 15}, {name: '人群3_TUE',value: 9}, {name: '人群4_TUE',value: 57}, {name: '人群5_TUE',value: 31}
+
+ ]
+    var links = [
+    { source: '人群1_THU',target: '人群1_FRI',value:69}, { source: '人群1_THU',target: '人群2_FRI',value:2},{ source: '人群1_THU',target: '人群3_FRI',value:2},{ source: '人群1_THU',target: '人群4_FRI',value:3},{ source: '人群1_THU',target: '人群5_FRI',value:1},
+    { source: '人群2_THU',target: '人群1_FRI',value:0},{ source: '人群2_THU',target: '人群2_FRI',value:15},{ source: '人群2_THU',target: '人群3_FRI',value:1},{ source: '人群2_THU',target: '人群4_FRI',value:2},{ source: '人群2_THU',target: '人群5_FRI',value:0},
+    { source: '人群3_THU',target: '人群1_FRI',value:5},{ source: '人群3_THU',target: '人群2_FRI',value:7},{ source: '人群3_THU',target: '人群3_FRI',value:15},{ source: '人群3_THU',target: '人群4_FRI',value:0},{ source: '人群3_THU',target: '人群5_FRI',value:1},
+    { source: '人群4_THU',target: '人群1_FRI',value:3},{ source: '人群4_THU',target: '人群2_FRI',value:6},{ source: '人群4_THU',target: '人群3_FRI',value:0},{ source: '人群4_THU',target: '人群4_FRI',value:60},{ source: '人群4_THU',target: '人群5_FRI',value:13},
+    { source: '人群5_THU',target: '人群1_FRI',value:10},{source: '人群5_THU',target: '人群2_FRI',value:0},{source: '人群5_THU',target: '人群3_FRI',value:2},{source: '人群5_THU',target: '人群4_FRI',value:8},{source: '人群5_THU',target: '人群5_FRI',value:18},
+    { source: '人群1_FRI',target: '人群1_SAT',value:95},{ source: '人群1_FRI',target: '人群1_SAT',value:95},{ source: '人群1_FRI',target: '人群2_SAT',value:6},{ source: '人群1_FRI',target: '人群2_SAT',value:2},{ source: '人群1_FRI',target: '人群3_SAT',value:4},{ source: '人群1_FRI',target: '人群4_SAT',value:6},{ source: '人群1_FRI',target: '人群5_SAT',value:2},
+    { source: '人群2_FRI',target: '人群1_SAT',value:0},{ source: '人群2_FRI',target: '人群2_SAT',value:7},{ source: '人群2_FRI',target: '人群3_SAT',value:1},{ source: '人群2_FRI',target: '人群4_SAT',value:1},{ source: '人群2_FRI',target: '人群5_SAT',value:0},
+    { source: '人群3_FRI',target: '人群1_SAT',value:4},{ source: '人群3_FRI',target: '人群2_SAT',value:0},{ source: '人群3_FRI',target: '人群3_SAT',value:12},{ source: '人群3_FRI',target: '人群4_SAT',value:2},{ source: '人群3_FRI',target: '人群5_SAT',value:1},
+    { source: '人群4_FRI',target: '人群1_SAT',value:2},{ source: '人群4_FRI',target: '人群2_SAT',value:0},{ source: '人群4_FRI',target: '人群3_SAT',value:2},{ source: '人群4_FRI',target: '人群4_SAT',value:58},{ source: '人群4_FRI',target: '人群5_SAT',value:1},
+    { source: '人群5_FRI',target: '人群1_SAT',value:6},{ source: '人群5_FRI',target: '人群2_SAT',value:2},{ source: '人群5_FRI',target: '人群2_SAT',value:6},{ source: '人群5_FRI',target: '人群3_SAT',value:1},{ source: '人群5_FRI',target: '人群4_SAT',value:0},{ source: '人群5_FRI',target: '人群5_SAT',value:14},
+    { source: '人群1_SAT',target: '人群1_SUN',value:108},{ source: '人群1_SAT',target: '人群2_SUN',value:0},{ source: '人群1_SAT',target: '人群3_SUN',value:1},{ source: '人群1_SAT',target: '人群4_SUN',value:6},{ source: '人群1_SAT',target: '人群5_SUN',value:10},
+    { source: '人群2_SAT',target: '人群1_SUN',value:0},{ source: '人群2_SAT',target: '人群2_SUN',value:9},{ source: '人群2_SAT',target: '人群3_SUN',value:1},{ source: '人群2_SAT',target: '人群4_SUN',value:0},{ source: '人群2_SAT',target: '人群5_SUN',value:0},
+    { source: '人群3_SAT',target: '人群1_SUN',value:4},{ source: '人群3_SAT',target: '人群2_SUN',value:2},{ source: '人群3_SAT',target: '人群3_SUN',value:19},{ source: '人群3_SAT',target: '人群4_SUN',value:8},{ source: '人群3_SAT',target: '人群5_SUN',value:3},
+    { source: '人群4_SAT',target: '人群1_SUN',value:5},{ source: '人群4_SAT',target: '人群2_SUN',value:6},{ source: '人群4_SAT',target: '人群3_SUN',value:2},{ source: '人群4_SAT',target: '人群4_SUN',value:70},{ source: '人群4_SAT',target: '人群5_SUN',value:10},
+    { source: '人群5_SAT',target: '人群1_SUN',value:2},{ source: '人群5_SAT',target: '人群2_SUN',value:0},{ source: '人群5_SAT',target: '人群3_SUN',value:5},{ source: '人群5_SAT',target: '人群4_SUN',value:3},{ source: '人群5_SAT',target: '人群5_SUN',value:6},
+    { source: '人群1_SUN',target: '人群1_MON',value:65},{ source: '人群1_SUN',target: '人群2_MON',value:8},{ source: '人群1_SUN',target: '人群3_MON',value:5},{ source: '人群1_SUN',target: '人群4_MON',value:15},{ source: '人群1_SUN',target: '人群5_MON',value:10},
+    { source: '人群2_SUN',target: '人群1_MON',value:0},{ source: '人群2_SUN',target: '人群2_MON',value:15},{ source: '人群2_SUN',target: '人群3_MON',value:0},{ source: '人群2_SUN',target: '人群4_MON',value:0},{ source: '人群2_SUN',target: '人群5_MON',value:0},
+    { source: '人群3_SUN',target: '人群1_MON',value:1},{ source: '人群3_SUN',target: '人群2_MON',value:0},{ source: '人群3_SUN',target: '人群3_MON',value:19},{ source: '人群3_SUN',target: '人群4_MON',value:1},{ source: '人群3_SUN',target: '人群5_MON',value:0},
+    { source: '人群4_SUN',target: '人群1_MON',value:13},{ source: '人群4_SUN',target: '人群2_MON',value:4},{ source: '人群4_SUN',target: '人群3_MON',value:6},{ source: '人群4_SUN',target: '人群4_MON',value:43},{ source: '人群4_SUN',target: '人群5_MON',value:2},
+    { source: '人群5_SUN',target: '人群1_MON',value:0},{ source: '人群5_SUN',target: '人群2_MON',value:0},{ source: '人群5_SUN',target: '人群3_MON',value:0},{ source: '人群5_SUN',target: '人群4_MON',value:0},{ source: '人群5_SUN',target: '人群5_MON',value:9},
+    { source: '人群1_MON',target: '人群1_TUE',value:60},{ source: '人群1_MON',target: '人群2_TUE',value:3},{ source: '人群1_MON',target: '人群3_TUE',value:4},{ source: '人群1_MON',target: '人群4_TUE',value:3},{ source: '人群1_MON',target: '人群5_TUE',value:1},
+    { source: '人群2_MON',target: '人群1_TUE',value:1},{ source: '人群2_MON',target: '人群2_TUE',value:12},{ source: '人群2_MON',target: '人群3_TUE',value:1},{ source: '人群2_MON',target: '人群4_TUE',value:1},{ source: '人群2_MON',target: '人群5_TUE',value:1},
+    { source: '人群3_MON',target: '人群1_TUE',value:10},{ source: '人群3_MON',target: '人群2_TUE',value:8},{ source: '人群3_MON',target: '人群3_TUE',value:5},{ source: '人群3_MON',target: '人群4_TUE',value:3},{ source: '人群3_MON',target: '人群5_TUE',value:1},
+    { source: '人群4_MON',target: '人群1_TUE',value:3},{ source: '人群4_MON',target: '人群2_TUE',value:2},{ source: '人群4_MON',target: '人群3_TUE',value:2},{ source: '人群4_MON',target: '人群4_TUE',value:50},{ source: '人群4_MON',target: '人群5_TUE',value:0},
+    { source: '人群5_MON',target: '人群1_TUE',value:2},{ source: '人群5_MON',target: '人群2_TUE',value:3},{ source: '人群5_MON',target: '人群3_TUE',value:0},{ source: '人群5_MON',target: '人群4_TUE',value:4},{ source: '人群5_MON',target: '人群5_TUE',value:20},
+
+    ]
+
+    myChart.setOption(option_t = 
+    {
+        title: {
+            text: '聚类人群变化桑基图'
+        },
+        tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+        },
+        series: 
+        [
+            {
+                type: 'sankey',
+                layout: 'none',
+                data: data,
+                links: links,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 1,
+                        borderColor: '#aaa'
+                    }
+                },
+                lineStyle: {
+                    normal: {
+                        color: 'source',
+                        curveness: 0.4
+                    }
+                },
+                label:{
+                    normal:{
+                        textStyle:{
+                            color:'rgba(238，238，238)'
+                        }
+                    }
+                }
+            }
+        ]
+    });
+
+    	myChart.on('click',function(params){
+		console.log(params);
+		if(params.componentType === 'series')
+		{
+			if(params.name === '人群1_THU')
+				data_heat = [[0,0,3],[1,0,2],[2,0,3],[3,0,12],[4,0,19],[5,0,14],[6,0,17],[7,0,10],[8,0,12],[9,0,9],[10,0,14],[11,0,4]];
+			if(params.name === '人群5_FRI')
+				data_heat = [[0,0,1],[1,0,1],[2,0,1],[3,0,8],[4,0,13],[5,0,15],[6,0,12],[7,0,10],[8,0,7],[9,0,4],[10,0,2],[11,0,1]];
+			if(params.name === '人群4_SAT')
+				data_heat = [[0,0,7],[1,0,9],[2,0,15],[3,0,19],[4,0,22],[5,0,20],[6,0,23],[7,0,17],[8,0,14],[9,0,9],[10,0,6],[11,0,5]];
+			if(params.name === '人群2_SUN')
+				data_heat = [[0,0,7],[1,0,7],[2,0,8],[3,0,5],[4,0,9],[5,0,4],[6,0,6],[7,0,3],[8,0,8],[9,0,10],[10,0,6],[11,0,2]];
+			if(params.name === '人群3_MON')
+				data_heat = [[0,0,15],[1,0,10],[2,0,12],[3,0,4],[4,0,7],[5,0,9],[6,0,17],[7,0,12],[8,0,19],[9,0,13],[10,0,15],[11,0,16]];
+
+		}
+
+	});
+
+
+</script>
+
+	<script>
+	var app = echarts.init(document.getElementById('main'),'dark');
+	app.title = '堆叠条形图';
+
+	var data_tue = [
+                {value:2424, name:'未知'},
+                {value:830, name:'娱乐'},
+                {value:188, name:'家居'},
+                {value:1066, name:'系统'},
+                {value:187, name:'动态'},
+                {value:38, name:'百科'}
+            ];
+	var data_mon = [
+                {value:5052, name:'未知'},
+                {value:1983, name:'娱乐'},
+                {value:535, name:'家居'},
+                {value:2418, name:'系统'},
+                {value:342, name:'动态'},
+                {value:96, name:'百科'}
+            ];
+	var data_sun = [
+                {value:6858, name:'未知'},
+                {value:2441, name:'娱乐'},
+                {value:694, name:'家居'},
+                {value:3022, name:'系统'},
+                {value:596, name:'动态'},
+                {value:128, name:'百科'}
+            ];
+	var data_sat = [
+                {value:7440, name:'未知'},
+                {value:2872, name:'娱乐'},
+                {value:403, name:'家居'},
+                {value:3447, name:'系统'},
+                {value:691, name:'动态'},
+                {value:116, name:'百科'}
+            ];
+	var data_fri = [
+                {value:4649, name:'未知'},
+                {value:1445, name:'娱乐'},
+                {value:613, name:'家居'},
+                {value:1961, name:'系统'},
+                {value:327, name:'动态'},
+                {value:89, name:'百科'}
+            ];
+	var data_thu = [
+                {value:5211, name:'未知'},
+                {value:1880, name:'娱乐'},
+                {value:417, name:'家居'},
+                {value:2394, name:'系统'},
+                {value:601, name:'动态'},
+                {value:158, name:'百科'}
+            ];
+	var data_pie;
+
+var option = {
+	title:{
+		text:'操作次数变化趋势'
+	},
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+        data: ['未知', '娱乐','家居','系统','动态','百科'],
+        top:'7%'
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis:  {
+        type: 'value'
+    },
+    yAxis: {
+        type: 'category',
+        data: ['周四','周五','周六','周日','周一','周二']
+    },
+    series: [
+        {
+            name: '未知',
+            type: 'bar',
+            stack: '总操作数',
+            label: {
+                normal: {
+                    show: false,
+                    position: 'insideRight'
+                }
+            },
+            data: [5211, 4649, 7440, 6858, 5052, 2424]
+        },
+        {
+            name: '娱乐',
+            type: 'bar',
+            stack: '总操作数',
+            label: {
+                normal: {
+                    show: false,
+                    position: 'insideRight'
+                }
+            },
+            data: [1880, 1445, 2872, 2441, 1983, 830]
+        },
+        {
+            name: '家居',
+            type: 'bar',
+            stack: '总操作数',
+            label: {
+                normal: {
+                    show: false,
+                    position: 'insideRight'
+                }
+            },
+            data: [417, 613, 403, 694, 535, 188]
+        },
+        {
+            name: '系统',
+            type: 'bar',
+            stack: '总操作数',
+            label: {
+                normal: {
+                    show: false,
+                    position: 'insideRight'
+                }
+            },
+            data: [2394,1961,3447,3022,2418,1066]
+        },
+        {
+            name: '动态',
+            type: 'bar',
+            stack: '总操作数',
+            label: {
+                normal: {
+                    show: false,
+                    position: 'insideRight'
+                }
+            },
+            data: [601,327,691,596,342,187]
+        },
+        {
+            name: '百科',
+            type: 'bar',
+            stack: '总操作数',
+            label: {
+                normal: {
+                    show: false,
+                    position: 'insideRight'
+                }
+            },
+            data: [158,89,116,128,96,38]
+        }
+    ]
+};
+
+
+	app.setOption(option);
+	app.on('click',function(params){
+		//console.log(params);
+		if(params.componentType === 'series'){
+			if(params.seriesType === 'bar'){
+			if(params.name === '周二')
+				data_pie = 0;
+			if(params.name === '周一')
+				data_pie = 1;
+			if(params.name === '周日')
+				data_pie = 2;
+			if(params.name === '周六')
+				data_pie = 3;
+			if(params.name === '周五')
+				data_pie = 4;
+			if(params.name === '周四')
+				data_pie = 5;
+		}
+		//console.log(data_pie);
+	}
+
+	
+	});
+	
+
+	</script>
+
+</div>
+<div style="display:inline">
+	<!--div id="heat" style="width=700px;height=300px;float:left"-->
+		<!--p>智能家居设备数据的可视化分析</p-->
+
+	<div id="heat" style="width:400px;height:200px;float:left;"></div>
+	<div id = "main2" style="width:700px;height:300px;float:right;right:1px;"></div>
+
+
+
+	<script type="text/javascript">
+	var app1 = echarts.init(document.getElementById('main2'),'dark');
+
+
+	var option1 = {
+
+    tooltip : {
+        trigger: 'item',
+        formatter: "{b} : {c} ({d}%)"
+    },
+    legend: {
+        x : 'center',
+        y : 'top',
+        data:['未知','娱乐','家居','系统','动态','百科']
+    },
+  
+    calculable : true,
+    series : [
+        {
+            //name:'半径模式',
+            type:'pie',
+            radius : [10, 100],
+            center : ['50%', '50%'],
+            roseType : 'radius',
+            label: {
+                normal: {
+                    show: true
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            lableLine: {
+                normal: {
+                    show: true
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            //data: data_tue
+            
+            /*[
+                {value:10, name:'未知'},
+                {value:5, name:'娱乐'},
+                {value:15, name:'家居'},
+                {value:25, name:'系统'},
+                {value:20, name:'动态'},
+                {value:35, name:'百科'}
+            ]*/
+        }
+    ]
+};
+//console.log(data_pie);
+
+
+	app1.setOption(option1);
+
+
+	function refreshdata(){
+		if(!app1){
+			return;
+		}
+
+		var option1 = app1.getOption();
+		if(data_pie == 0)
+			option1.series[0].data = data_tue;
+			
+		if(data_pie == 1)
+			option1.series[0].data = data_mon;
+			
+		if(data_pie==2)
+			option1.series[0].data = data_sun;
+			
+		if(data_pie==3)
+			option1.series[0].data = data_sat;
+			
+		if(data_pie == 4)
+			option1.series[0].data = data_fri;
+			
+		if(data_pie == 5)
+			option1.series[0].data = data_thu;
+			
+		app1.setOption(option1);
+	}
+	setInterval(function(){
+		refreshdata();
+	},500);
+
+	refreshdata();
+	//window.setInterval(refreshData(),3000);
+
+	</script>
+
+<script type="text/javascript">
+var app2 = echarts.init(document.getElementById('main4'),'walden');
+var option2 = {
+    title: {
+        //text: '堆叠区域图'
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data:['人群1','人群2','人群3','人群4','人群5']
+    },
+
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周四','周五','周六','周日','周一','周二']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'人群1',
+            type:'line',
+            stack: '总人数',
+            areaStyle: {normal: {}},
+            data:[77, 102, 123, 118, 71, 65]
+        },
+        {
+            name:'人群2',
+            type:'line',
+            stack: '总人数',
+            areaStyle: {normal: {}},
+            data:[20,17,10,15,22,15]
+        },
+        {
+            name:'人群3',
+            type:'line',
+            stack: '总人数',
+            areaStyle: {normal: {}},
+            data:[28,19,31,21,27,9]
+        },
+        {
+            name:'人群4',
+            type:'line',
+            stack: '总人数',
+            areaStyle: {normal: {}},
+            data:[85,60,84,72,57,57]
+        },
+        {
+            name:'人群5',
+            type:'line',
+            stack: '总人数',
+            label: {
+                normal: {
+                    //show: true,
+                    //position: 'top'
+                }
+            },
+            areaStyle: {normal: {}},
+            data:[36,28,16,9,29,31]
+        }
+    ]
+};
+
+app2.setOption(option2);
+
+
+
+</script>
+<script>
+var heat = echarts.init(document.getElementById('heat'),'dark');
+heat.title = '热力图';
+
+var hours = ['10p','12a', '2a','4a',
+        '6a', '8a','10a','12p', '2p','4p',  '6p','8p'];
+var days = ['次数'];
+
+
+
+data = data.map(function (item) {
+    return [item[1], item[0], item[2] || '-'];
+});
+
+var option_heat = {
+    tooltip: {
+        position: 'top'
+    },
+    animation: false,
+    grid: {
+        height: '15%',
+        y: '20%'
+    },
+    xAxis: {
+        type: 'category',
+        data: hours,
+        splitArea: {
+            show: true
+        },
+        //boundaryGap:false
+
+    },
+    yAxis: {
+        type: 'category',
+        data: days,
+        splitArea: {
+            show: true
+        }
+    },
+    visualMap: {
+        min: 0,
+        max: 25,
+        calculable: true,
+        orient: 'horizontal',
+        left: 'center',
+        bottom: '15%'
+
+    },
+    series: [{
+        name: 'Punch Card',
+        type: 'heatmap',
+        label: {
+            normal: {
+                show: false
+            }
+        },
+        itemStyle: {
+            emphasis: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+    }]
+};
+
+heat.setOption(option_heat);
+
+	function refreshdata1(){
+		if(!heat){
+			return;
+		}
+
+		var option_heat = heat.getOption();
+
+		option_heat.series[0].data = data_heat;
+			
+		heat.setOption(option_heat);
+	}
+	setInterval(function(){
+		refreshdata1();
+	},500);
+
+	refreshdata1();
+
+</script>
+</div>
+</html>
